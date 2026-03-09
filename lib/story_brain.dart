@@ -1,8 +1,20 @@
 import 'story.dart';
+import 'game_state.dart';
 
 class StoryBrain {
   int _storyNumber = 0;
-  bool _playerHasBeenToIllusion = false;
+  final GameState gameState;
+
+  // Endings that trigger haptic feedback (scary endings)
+  static const Set<int> scaryEndings = {4, 6, 8, 11};
+  // All ending indices
+  static const Set<int> allEndingIndices = {4, 6, 8, 11, 12, 13, 14};
+
+  StoryBrain({required this.gameState}) {
+    // Restore illusion flag from saved state
+  }
+
+  bool get playerHasBeenToIllusion => gameState.getHasBeenToIllusion();
 
   final List<Story> _storyData = [
     // 0 - البداية
@@ -129,8 +141,15 @@ class StoryBrain {
   String getStory() => _storyData[_storyNumber].storyTitle;
   String getChoice1() => _storyData[_storyNumber].choice1;
   String getChoice2() => _storyData[_storyNumber].choice2;
+  int get currentStoryNumber => _storyNumber;
 
-  void nextStory(int choiceNumber) {
+  bool isAtEnding() => allEndingIndices.contains(_storyNumber);
+  bool isAtScaryEnding() => scaryEndings.contains(_storyNumber);
+
+  /// Returns the new ending index if we just arrived at an ending, or null.
+  int? nextStory(int choiceNumber) {
+    int? reachedEnding;
+
     switch (_storyNumber) {
       case 0:
         _storyNumber = (choiceNumber == 1) ? 1 : 2;
@@ -162,23 +181,25 @@ class StoryBrain {
 
       case 10:
         if (choiceNumber == 1) {
-          _storyNumber = _playerHasBeenToIllusion ? 14 : 12;
+          _storyNumber = playerHasBeenToIllusion ? 14 : 12;
         } else {
-          _storyNumber = 11; // ✅ تمزيق الكتاب → نهاية مرعبة 4
+          _storyNumber = 11;
         }
         break;
 
       case 12:
-        _playerHasBeenToIllusion = true; // ✅ تسجيل أن اللاعب رأى الوهم
-        _storyNumber = 13;               // ✅ الانتقال لنهاية الوهم بدل restart مباشرة
+        gameState.setHasBeenToIllusion(true);
+        _storyNumber = 13;
         break;
 
       case 13:
+        gameState.incrementPlays();
         restart();
         break;
 
       case 14:
-        _playerHasBeenToIllusion = false; // ✅ إعادة ضبط الحالة للتشغيل التالي
+        gameState.setHasBeenToIllusion(false);
+        gameState.incrementPlays();
         restart();
         break;
 
@@ -186,9 +207,21 @@ class StoryBrain {
       case 6:
       case 8:
       case 11:
+        gameState.incrementPlays();
         restart();
         break;
     }
+
+    // Check if we arrived at an ending
+    if (allEndingIndices.contains(_storyNumber)) {
+      reachedEnding = _storyNumber;
+      // Save the ending as discovered (for endings that get displayed before restart)
+      if ([4, 6, 8, 11, 13, 14].contains(_storyNumber)) {
+        gameState.addDiscoveredEnding(_storyNumber);
+      }
+    }
+
+    return reachedEnding;
   }
 
   void restart() {

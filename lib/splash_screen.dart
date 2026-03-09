@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'fog_effect.dart';
+import 'game_state.dart';
 
 /// A dark, atmospheric splash screen for the horror story app.
 class SplashScreen extends StatefulWidget {
   final VoidCallback onStart;
-  const SplashScreen({super.key, required this.onStart});
+  final GameState gameState;
+  const SplashScreen({super.key, required this.onStart, required this.gameState});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -214,7 +216,6 @@ class _SplashScreenState extends State<SplashScreen>
 
                   const Spacer(flex: 2),
 
-                  // Warning text
                   Text(
                     '⚠️ هل أنت مستعد لمعرفة الحقيقة؟',
                     style: GoogleFonts.cairo(
@@ -222,6 +223,17 @@ class _SplashScreenState extends State<SplashScreen>
                       color: Colors.white.withOpacity(0.3),
                     ),
                   ),
+
+                  if (widget.gameState.discoveredCount > 0) ...[
+                    const SizedBox(height: 8),
+                    Text(
+                      '📖 ${widget.gameState.discoveredCount}/${widget.gameState.totalEndings} نهايات مكتشفة',
+                      style: GoogleFonts.cairo(
+                        fontSize: 12,
+                        color: Colors.amber.withOpacity(0.4),
+                      ),
+                    ),
+                  ],
 
                   const SizedBox(height: 24),
                 ],
