@@ -1,7 +1,27 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:destini_starting_master/story_brain.dart';
-import 'package:destini_starting_master/game_state.dart';
+import 'package:destini_starting_master/controllers/story_brain.dart';
+import 'package:destini_starting_master/models/game_state.dart';
+import 'package:destini_starting_master/models/story.dart';
+
+// Arabic story data for tests (mirrors story_data_ar.json)
+final _testStories = [
+  Story(id: 0, storyTitle: 'سيارتك تعطلت في طريق صحراوي مهجور.', choice1: 'اركب معه.', choice2: 'ارفض وانتظر.'),
+  Story(id: 1, storyTitle: 'يتحدث عن بوابات الظلال.', choice1: 'اطلب التوقف.', choice2: 'اطلب الاختصار.'),
+  Story(id: 2, storyTitle: 'نسختك من المستقبل يقول ستندم.', choice1: 'تصدقه.', choice2: 'ترفض.'),
+  Story(id: 3, storyTitle: 'كهف غريب ويقول ادخل.', choice1: 'تدخل.', choice2: 'ترفض.'),
+  Story(id: 4, storyTitle: 'صحراء لا تنتهي الزمن متجمد.', choice1: 'ابدأ مجددًا', choice2: ''),
+  Story(id: 5, storyTitle: 'مدينة تحت الأرض الهواء سميك.', choice1: 'تواصل.', choice2: 'تحاول العودة.'),
+  Story(id: 6, storyTitle: 'الطريق اختفى تحول إلى سواد.', choice1: 'ابدأ مجددًا', choice2: ''),
+  Story(id: 7, storyTitle: 'معبد بتماثيل تشبهك يفتح عينيه.', choice1: 'تلمس.', choice2: 'تحطم.'),
+  Story(id: 8, storyTitle: 'تدخل التمثال حياتك تتكرر.', choice1: 'ابدأ مجددًا', choice2: ''),
+  Story(id: 9, storyTitle: 'غرفة فيها آلة بوابة وكتاب.', choice1: 'تقرأ الكتاب.', choice2: 'تشغل الآلة.'),
+  Story(id: 10, storyTitle: 'الكتاب يصف قراراتك الحقيقة ليست هنا.', choice1: 'تفتح البوابة.', choice2: 'تمزق الكتاب.'),
+  Story(id: 11, storyTitle: 'بتمزيق الكتاب الأرض تنهار دوامة لا نهائية.', choice1: 'ابدأ مجددًا', choice2: ''),
+  Story(id: 12, storyTitle: 'عالم جميل وهادئ الشمس تشرق.', choice1: 'ابدأ مجددًا', choice2: ''),
+  Story(id: 13, storyTitle: 'كل شيء زائف الزمن متجمد سجن ذكي.', choice1: 'ابدأ مجددًا', choice2: ''),
+  Story(id: 14, storyTitle: 'أنا لست من أريد الخروج أنا من يجب أن يُمحى.', choice1: 'تبدأ عملية الإعادة.', choice2: ''),
+];
 
 void main() {
   group('StoryBrain Tests', () {
@@ -13,6 +33,7 @@ void main() {
       gameState = GameState();
       await gameState.init();
       storyBrain = StoryBrain(gameState: gameState);
+      storyBrain.loadTestStories(_testStories);
     });
 
     test('Initial story is at index 0', () {

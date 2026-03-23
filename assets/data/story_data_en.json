@@ -1,0 +1,111 @@
+{
+  "stories": [
+    {
+      "id": 0,
+      "storyTitle": "Your car broke down on a deserted desert road. Hours later, a strange man appears in an old truck and offers you a ride.",
+      "choice1": "Get in with him.",
+      "choice2": "Refuse and wait."
+    },
+    {
+      "id": 1,
+      "storyTitle": "He starts talking about \"Shadow Gates\", saying he knows a shortcut that leads to a purer world.",
+      "choice1": "Ask him to stop.",
+      "choice2": "Ask to see this shortcut."
+    },
+    {
+      "id": 2,
+      "storyTitle": "After a while, you find yourself facing your future self, who says you will regret your choices.",
+      "choice1": "Believe him and leave.",
+      "choice2": "Refuse and try to go back."
+    },
+    {
+      "id": 3,
+      "storyTitle": "The man leaves you in front of a strange cave and says: \"Enter, the truth awaits you inside.\"",
+      "choice1": "Enter the cave.",
+      "choice2": "Refuse and try to go back."
+    },
+    {
+      "id": 4,
+      "storyTitle": "You find yourself in an endless desert. Time is frozen, and everyone you see looks like you. You begin to lose your identity.",
+      "choice1": "Start over",
+      "choice2": ""
+    },
+    {
+      "id": 5,
+      "storyTitle": "You discover an underground city. The air is thick, and the sounds resemble your voice. You feel watched.",
+      "choice1": "Continue forward.",
+      "choice2": "Try to go back."
+    },
+    {
+      "id": 6,
+      "storyTitle": "You try to go back, but the path has disappeared. Everything around you turns into infinite darkness.",
+      "choice1": "Start over",
+      "choice2": ""
+    },
+    {
+      "id": 7,
+      "storyTitle": "In the heart of the city, you find a temple full of statues that look like you. One of them opens its eyes suddenly.",
+      "choice1": "Touch the statue.",
+      "choice2": "Smash the statues."
+    },
+    {
+      "id": 8,
+      "storyTitle": "By touching the statue, you enter it. You watch your life repeat endlessly, unable to speak.",
+      "choice1": "Start over",
+      "choice2": ""
+    },
+    {
+      "id": 9,
+      "storyTitle": "The statues shatter, revealing a bright room containing a gateway machine with a book beside it.",
+      "choice1": "Read the book.",
+      "choice2": "Activate the machine directly."
+    },
+    {
+      "id": 10,
+      "storyTitle": "The book describes all your decisions precisely, ending with: \"The truth is not here... it is within you.\"",
+      "choice1": "Open the gateway.",
+      "choice2": "Tear the book."
+    },
+    {
+      "id": 11,
+      "storyTitle": "By tearing the book, the ground collapses and you fall into an infinite vortex. Everything you were is erased.",
+      "choice1": "Start over",
+      "choice2": ""
+    },
+    {
+      "id": 12,
+      "storyTitle": "You activate the machine and transfer to a beautiful, peaceful world. The sun rises, and people smile at you.",
+      "choice1": "Start over",
+      "choice2": ""
+    },
+    {
+      "id": 13,
+      "storyTitle": "After a while, you realize everything is fake. People never change, and time is frozen. You have entered an intelligent prison.",
+      "choice1": "Start over",
+      "choice2": ""
+    },
+    {
+      "id": 14,
+      "storyTitle": "You remember everything that happened before. You return to the temple and place your hand on the last statue. You say: \"I am not the one who wants to leave... I am the one who must be erased.\"",
+      "choice1": "Begin the reset.",
+      "choice2": ""
+    }
+  ],
+  "navigation": {
+    "0": {"1": 1, "2": 2},
+    "1": {"1": 4, "2": 3},
+    "2": {"1": 5, "2": 6},
+    "3": {"1": 5, "2": 6},
+    "5": {"1": 7, "2": 6},
+    "7": {"1": 8, "2": 9},
+    "9": {"1": 10, "2": 12},
+    "10": {"1": -1, "2": 11},
+    "12": {"1": 13},
+    "13": {"1": -2},
+    "14": {"1": -3},
+    "4": {"1": -2},
+    "6": {"1": -2},
+    "8": {"1": -2},
+    "11": {"1": -2}
+  }
+}
